@@ -1,0 +1,76 @@
+<h2>哪些页面的 3D 牙齿模型需要替换？</h2>
+<p class="subtitle">当前 OBJ 牙模出现在 9 个页面中。标记你认为"不好看"的页面，我们优先处理。</p>
+
+<div class="section">
+  <h3>页面分类</h3>
+</div>
+
+<div class="options" data-multiselect>
+  <div class="option" data-choice="login">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>LoginPage — 登录页</h3>
+      <p>左侧大尺寸 3D 透明牙模 + 粒子背景。建模加载慢时显示旋转光环，体验最明显。</p>
+    </div>
+  </div>
+  <div class="option" data-choice="patienthome">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>PatientHome — 患者首页</h3>
+      <p>中央大尺寸展示，带 HUD 标签和数据卡片环绕，是用户停留最久的页面。</p>
+    </div>
+  </div>
+  <div class="option" data-choice="aianalysis">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>AIAnalysisPage — AI分析页</h3>
+      <p>底部小型透明牙模展示在"AI评分环形图"下方，仅作装饰点缀。</p>
+    </div>
+  </div>
+  <div class="option" data-choice="treatment">
+    <div class="letter">D</div>
+    <div class="content">
+      <h3>TreatmentProgress — 疗程进度</h3>
+      <p>小巧的牙模辅助展示治疗对比。</p>
+    </div>
+  </div>
+  <div class="option" data-choice="decision">
+    <div class="letter">E</div>
+    <div class="content">
+      <h3>AIDecisionCenter — AI决策中心</h3>
+      <p>底部横条展示区，透明牙模 + 粒子流，标注"医患数据流可视化"。</p>
+    </div>
+  </div>
+  <div class="option" data-choice="patientdetail">
+    <div class="letter">F</div>
+    <div class="content">
+      <h3>PatientDetail — 患者详情</h3>
+      <p>医生端查看患者信息页面中的牙模展示。</p>
+    </div>
+  </div>
+  <div class="option" data-choice="ending">
+    <div class="letter">G</div>
+    <div class="content">
+      <h3>EndingPage — 结束页</h3>
+      <p>页面中央大尺寸透明旋转牙模 + 品牌标语，是全流程的收尾视觉锚点。</p>
+    </div>
+  </div>
+  <div class="option" data-choice="projectvalue">
+    <div class="letter">H</div>
+    <div class="content">
+      <h3>ProjectValue — 项目价值页</h3>
+      <p>产品介绍页中的装饰性牙模。</p>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top:32px;">
+  <div style="padding:16px;background:rgba(10,132,255,0.04);border-radius:12px;border:1px solid rgba(10,132,255,0.1);">
+    <strong>改造思路参考：</strong>
+    <ul style="margin-top:8px;color:#636366;">
+      <li>大尺寸牙模区域 → 替换为抽象3D科技元素（光环、DNA螺旋、数据流球体）</li>
+      <li>装饰性牙模 → 替换为精美的 SVG 图标/动画/数据可视化卡片</li>
+      <li>保留 1-2 个关键页面的真实牙模（如患者首页），但优化加载</li>
+    </ul>
+  </div>
+</div>

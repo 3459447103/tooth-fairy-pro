@@ -1,0 +1,121 @@
+<h2>最终设计方案 — 数智矫正 UI 升级</h2>
+<p class="subtitle">8 个页面改造 · 1 个页面删除 · 预计产物总体积从 ~8MB 降至 ~400KB</p>
+
+<div class="section">
+  <h3>改造清单</h3>
+  <table style="width:100%;border-collapse:collapse;font-size:13px">
+    <tr style="border-bottom:1px solid rgba(0,0,0,0.06)">
+      <th style="text-align:left;padding:8px 10px;font-size:12px;color:#8E8E93">页面</th>
+      <th style="text-align:left;padding:8px 10px;font-size:12px;color:#8E8E93">原内容</th>
+      <th style="text-align:left;padding:8px 10px;font-size:12px;color:#8E8E93">新内容</th>
+      <th style="text-align:left;padding:8px 10px;font-size:12px;color:#8E8E93">类型</th>
+    </tr>
+    <tr style="border-bottom:1px solid rgba(0,0,0,0.03)">
+      <td style="padding:8px 10px;font-weight:600">LoginPage</td>
+      <td style="padding:8px 10px;color:#636366">大尺寸透明牙模</td>
+      <td style="padding:8px 10px;color:#0A84FF">品牌光环 + 粒子漩涡</td>
+      <td style="padding:8px 10px"><span style="background:rgba(10,132,255,0.1);color:#0A84FF;padding:2px 8px;border-radius:10px;font-size:11px">3D抽象</span></td>
+    </tr>
+    <tr style="border-bottom:1px solid rgba(0,0,0,0.03)">
+      <td style="padding:8px 10px;font-weight:600">PatientHome</td>
+      <td style="padding:8px 10px;color:#636366">大尺寸牙模</td>
+      <td style="padding:8px 10px;color:#30C8B0">保留牙模 + 骨架屏 + 淡入动画</td>
+      <td style="padding:8px 10px"><span style="background:rgba(48,200,176,0.1);color:#30C8B0;padding:2px 8px;border-radius:10px;font-size:11px">加载优化</span></td>
+    </tr>
+    <tr style="border-bottom:1px solid rgba(0,0,0,0.03)">
+      <td style="padding:8px 10px;font-weight:600">AIAnalysisPage</td>
+      <td style="padding:8px 10px;color:#636366">底部装饰牙模</td>
+      <td style="padding:8px 10px;color:#0A84FF">SVG 六维健康雷达图</td>
+      <td style="padding:8px 10px"><span style="background:rgba(10,132,255,0.1);color:#0A84FF;padding:2px 8px;border-radius:10px;font-size:11px">SVG图表</span></td>
+    </tr>
+    <tr style="border-bottom:1px solid rgba(0,0,0,0.03)">
+      <td style="padding:8px 10px;font-weight:600">AIDecisionCenter</td>
+      <td style="padding:8px 10px;color:#636366">底部牙模+粒子流</td>
+      <td style="padding:8px 10px;color:#FF9F0A">AI 决策流水线动画（4步）</td>
+      <td style="padding:8px 10px"><span style="background:rgba(255,159,10,0.1);color:#FF9F0A;padding:2px 8px;border-radius:10px;font-size:11px">动画组件</span></td>
+    </tr>
+    <tr style="border-bottom:1px solid rgba(0,0,0,0.03)">
+      <td style="padding:8px 10px;font-weight:600">TreatmentProgress</td>
+      <td style="padding:8px 10px;color:#636366">小型装饰牙模</td>
+      <td style="padding:8px 10px;color:#0A84FF">疗程进度时间轴 + 环形进度</td>
+      <td style="padding:8px 10px"><span style="background:rgba(10,132,255,0.1);color:#0A84FF;padding:2px 8px;border-radius:10px;font-size:11px">SVG图表</span></td>
+    </tr>
+    <tr style="border-bottom:1px solid rgba(0,0,0,0.03)">
+      <td style="padding:8px 10px;font-weight:600">PatientDetail</td>
+      <td style="padding:8px 10px;color:#636366">装饰牙模</td>
+      <td style="padding:8px 10px;color:#0A84FF">患者指标概览卡片组</td>
+      <td style="padding:8px 10px"><span style="background:rgba(10,132,255,0.1);color:#0A84FF;padding:2px 8px;border-radius:10px;font-size:11px">数据面板</span></td>
+    </tr>
+    <tr style="border-bottom:1px solid rgba(0,0,0,0.03)">
+      <td style="padding:8px 10px;font-weight:600">EndingPage</td>
+      <td style="padding:8px 10px;color:#636366">大尺寸透明牙模</td>
+      <td style="padding:8px 10px;color:#0A84FF">数据球体 + 雷达扫描</td>
+      <td style="padding:8px 10px"><span style="background:rgba(0,132,255,0.1);color:#0A84FF;padding:2px 8px;border-radius:10px;font-size:11px">3D抽象</span></td>
+    </tr>
+    <tr style="background:rgba(255,107,107,0.04)">
+      <td style="padding:8px 10px;font-weight:600;color:#FF6B6B">ProjectValue</td>
+      <td style="padding:8px 10px;color:#636366">装饰牙模</td>
+      <td style="padding:8px 10px;color:#FF6B6B">删除整个页面</td>
+      <td style="padding:8px 10px"><span style="background:rgba(255,107,107,0.1);color:#FF6B6B;padding:2px 8px;border-radius:10px;font-size:11px">删除</span></td>
+    </tr>
+  </table>
+</div>
+
+<div class="section" style="margin-top:28px">
+  <h3>公共组件新增</h3>
+  <table style="width:100%;border-collapse:collapse;font-size:13px">
+    <tr style="border-bottom:1px solid rgba(0,0,0,0.06)">
+      <th style="text-align:left;padding:8px 10px;font-size:12px;color:#8E8E93">组件</th>
+      <th style="text-align:left;padding:8px 10px;font-size:12px;color:#8E8E93">说明</th>
+      <th style="text-align:left;padding:8px 10px;font-size:12px;color:#8E8E93">体积</th>
+    </tr>
+    <tr style="border-bottom:1px solid rgba(0,0,0,0.03)">
+      <td style="padding:8px 10px;font-weight:500">BrandHalo3D.jsx</td>
+      <td style="padding:8px 10px;color:#636366">品牌光环+粒子漩涡（LoginPage）</td>
+      <td style="padding:8px 10px;color:#30C8B0">~5KB</td>
+    </tr>
+    <tr style="border-bottom:1px solid rgba(0,0,0,0.03)">
+      <td style="padding:8px 10px;font-weight:500">DataSphere3D.jsx</td>
+      <td style="padding:8px 10px;color:#636366">线框球体+雷达扫描（EndingPage）</td>
+      <td style="padding:8px 10px;color:#30C8B0">~4KB</td>
+    </tr>
+    <tr style="border-bottom:1px solid rgba(0,0,0,0.03)">
+      <td style="padding:8px 10px;font-weight:500">RadarChart.jsx</td>
+      <td style="padding:8px 10px;color:#636366">SVG 六维雷达图（AIAnalysisPage）</td>
+      <td style="padding:8px 10px;color:#30C8B0">~2KB</td>
+    </tr>
+    <tr style="border-bottom:1px solid rgba(0,0,0,0.03)">
+      <td style="padding:8px 10px;font-weight:500">PipelineFlow.jsx</td>
+      <td style="padding:8px 10px;color:#636366">AI 决策流水线动画（AIDecisionCenter）</td>
+      <td style="padding:8px 10px;color:#30C8B0">~3KB</td>
+    </tr>
+    <tr style="border-bottom:1px solid rgba(0,0,0,0.03)">
+      <td style="padding:8px 10px;font-weight:500">SkeletonLoader.jsx</td>
+      <td style="padding:8px 10px;color:#636366">牙模加载骨架屏（PatientHome）</td>
+      <td style="padding:8px 10px;color:#30C8B0">~1KB</td>
+    </tr>
+  </table>
+</div>
+
+<div class="section" style="margin-top:28px">
+  <h3>预期效果</h3>
+  <div class="pros-cons">
+    <div class="pros">
+      <h4>提升</h4>
+      <ul>
+        <li>首屏加载从 ~27MB → ~400KB（快 ~70 倍）</li>
+        <li>8个页面不再等待 OBJ 模型加载</li>
+        <li>视觉更精致、更专业、更有科技感</li>
+        <li>代码模块化，每个 3D 组件独立可复用</li>
+      </ul>
+    </div>
+    <div class="cons">
+      <h4>注意</h4>
+      <ul>
+        <li>PatientHome 仍保留 5.4MB 牙模加载（但已比原先27MB大幅优化）</li>
+        <li>删除 ProjectValue 需同步更新 App.jsx 路由</li>
+        <li>新增 5 个组件文件</li>
+      </ul>
+    </div>
+  </div>
+</div>

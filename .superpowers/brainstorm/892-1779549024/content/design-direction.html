@@ -1,0 +1,50 @@
+<h2>LoginPage & EndingPage — 3D 科技元素设计方案</h2>
+<p class="subtitle">替代大尺寸牙模，保持视觉冲击力，体量更轻、加载更快</p>
+
+<div class="options">
+  <div class="option" data-choice="ring-glow">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>品牌光环 + 粒子漩涡</h3>
+      <p><strong>元素：</strong>多层旋转光环（蓝金渐变）+ 数百个浮动粒子形成螺旋 + 中心品牌图标</p>
+      <p><strong>视觉：</strong>像 Apple 产品发布页那种精致科技感，光环脉冲呼吸，粒子缓慢环绕</p>
+      <p><strong>技术：</strong>纯 Three.js 几何体，无外部模型文件，约 5KB JS，即时渲染</p>
+    </div>
+  </div>
+  <div class="option" data-choice="dna-helix">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>DNA 双螺旋 + 数据流</h3>
+      <p><strong>元素：</strong>蓝色发光 DNA 双螺旋结构缓慢旋转 + 数据节点沿螺旋上下流动</p>
+      <p><strong>视觉：</strong>生命科学 + 精准医疗联想，双螺旋象征"精准正畸"的品牌内涵</p>
+      <p><strong>技术：</strong>Three.js 参数化曲线 + 球体节点，无外部依赖，约 3KB JS</p>
+    </div>
+  </div>
+  <div class="option" data-choice="data-sphere">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>数据球体 + 雷达扫描</h3>
+      <p><strong>元素：</strong>线框球体（经纬线网格）+ 环形雷达扫描波 + 表面数据热力点</p>
+      <p><strong>视觉：</strong>未来科技 HUD 风格，像科幻电影中的全息地球仪</p>
+      <p><strong>技术：</strong>Three.js 线框球 + 环面 + 点云，约 4KB JS</p>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top:32px">
+  <h3>推荐方案</h3>
+  <div style="padding:16px;background:rgba(10,132,255,0.04);border-radius:12px;border:1px solid rgba(10,132,255,0.12)">
+    <strong>登录页：方案 A（品牌光环 + 粒子漩涡）</strong> — 视觉最精致，品牌感强<br>
+    <strong>结束页：方案 C（数据球体 + 雷达扫描）</strong> — 科技收尾，"精准监测"意境
+  </div>
+</div>
+
+<div class="section" style="margin-top:24px">
+  <h3>技术优势</h3>
+  <ul style="color:#636366">
+    <li>无需加载 27MB 的 OBJ + 贴图文件</li>
+    <li>纯代码生成，页面打开瞬间即可渲染</li>
+    <li>体积从 ~5MB 降到 ~5KB</li>
+    <li>旋转/脉冲/粒子动画天然流畅</li>
+  </ul>
+</div>
