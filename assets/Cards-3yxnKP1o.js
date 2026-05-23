@@ -1,1 +1,0 @@
-import{a as e,i as t,o as n}from"./index-BMGciLkh.js";n();var r=e();function i({children:e,className:n=``,hover:i=!0,glow:a=!1,...o}){return(0,r.jsx)(t.div,{className:`glass ${a?`pulse-glow`:``} ${n}`,style:{padding:`24px`},whileHover:i?{y:-2,transition:{duration:.3}}:void 0,...o,children:e})}export{i as t};
