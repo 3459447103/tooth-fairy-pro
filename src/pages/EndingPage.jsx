@@ -1,15 +1,13 @@
-import { Suspense, useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Canvas } from '@react-three/fiber'
-import { Environment } from '@react-three/drei'
-import ToothModel from '../components/ToothModel'
-import ParticleBackground from '../components/ParticleBackground'
+import DataSphere3D from '../components/DataSphere3D'
 
 export default function EndingPage() {
   const [showText, setShowText] = useState(false)
 
   useEffect(() => {
-    const t = setTimeout(() => setShowText(true), 1000)
+    const t = setTimeout(() => setShowText(true), 800)
     return () => clearTimeout(t)
   }, [])
 
@@ -19,56 +17,41 @@ export default function EndingPage() {
       alignItems: 'center', justifyContent: 'center',
       background: '#F2F7FB', position: 'relative', overflow: 'hidden'
     }}>
-      {/* Particle background */}
-      <div style={{ position: 'absolute', inset: 0, opacity: 0.7 }}>
-        <Canvas camera={{ position: [0, 0, 5], fov: 60 }}>
-          <Suspense fallback={null}>
-            <ParticleBackground count={200} color="#0A84FF" />
-          </Suspense>
-        </Canvas>
-      </div>
-
       {/* Central glow */}
       <motion.div
         initial={{ opacity: 0 }}
-        animate={{ opacity: [0.2, 0.4, 0.2] }}
+        animate={{ opacity: [0.15, 0.35, 0.15] }}
         transition={{ duration: 4, repeat: Infinity }}
         style={{
           position: 'absolute', top: '50%', left: '50%',
           transform: 'translate(-50%, -50%)',
-          width: '500px', height: '500px',
+          width: '600px', height: '600px',
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(10,132,255,0.06) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(10,132,255,0.08) 0%, transparent 70%)',
           pointerEvents: 'none'
         }}
       />
 
-      {/* 3D Tooth */}
+      {/* Data Sphere 3D */}
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1.5, ease: 'easeOut' }}
-        style={{ width: '400px', height: '400px', position: 'relative', zIndex: 1 }}
+        style={{ width: '420px', height: '420px', position: 'relative', zIndex: 1 }}
       >
-        <Canvas camera={{ position: [0, 0.3, 3], fov: 40 }}>
-          <ambientLight intensity={0.6} />
-          <directionalLight position={[5, 5, 5]} intensity={0.8} />
-          <directionalLight position={[-3, 2, 2]} intensity={0.4} color="#64D2FF" />
-          <pointLight position={[0, 1, 3]} intensity={0.5} color="#0A84FF" />
-          <Suspense fallback={null}>
-            <ToothModel autoRotate transparent scale={1.8} />
-            <Environment preset="studio" />
-          </Suspense>
+        <Canvas camera={{ position: [0, 0.1, 3.8], fov: 38 }}
+          gl={{ antialias: true, alpha: true }}>
+          <DataSphere3D />
         </Canvas>
 
-        {/* HUD scan effect */}
+        {/* Scan line effect */}
         <motion.div
-          animate={{ opacity: [0, 0.5, 0] }}
-          transition={{ duration: 3, repeat: Infinity, delay: 0.5 }}
+          animate={{ opacity: [0, 0.4, 0] }}
+          transition={{ duration: 3, repeat: Infinity }}
           style={{
-            position: 'absolute', top: '10%', left: '10%', right: '10%',
+            position: 'absolute', top: '15%', left: '10%', right: '10%',
             height: '1px', background: 'linear-gradient(90deg, transparent, #0A84FF, transparent)',
-            opacity: 0.3
+            opacity: 0.3, pointerEvents: 'none'
           }}
         />
       </motion.div>
@@ -107,14 +90,12 @@ export default function EndingPage() {
               fontSize: '14px', color: '#0A84FF', fontWeight: 500,
               letterSpacing: '1px'
             }}>
-              隐形齿精灵 Pro
+              数智矫正
             </div>
             <div style={{ fontSize: '13px', color: '#AEAEB2', letterSpacing: '2px' }}>
-              INVISIBLE TOOTH FAIRY PRO
+              PRECISION ORTHODONTICS
             </div>
-            <div style={{
-              display: 'flex', gap: '12px', marginTop: '24px'
-            }}>
+            <div style={{ display: 'flex', gap: '12px', marginTop: '24px' }}>
               {['AI 智能监测', '精准医疗', '云端协同'].map((tag, i) => (
                 <motion.div
                   key={i}
@@ -146,7 +127,7 @@ export default function EndingPage() {
           color: '#AEAEB2', zIndex: 1
         }}
       >
-        © 2026 隐形齿精灵科技 · 演示版本 · 赛事展示用
+        2026 数智矫正科技 · 演示版本
       </motion.div>
     </div>
   )

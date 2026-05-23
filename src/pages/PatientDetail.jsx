@@ -1,9 +1,4 @@
-import { Suspense } from 'react'
 import { motion } from 'framer-motion'
-import { Canvas } from '@react-three/fiber'
-import { Environment } from '@react-three/drei'
-import ToothModel from '../components/ToothModel'
-import ParticleBackground from '../components/ParticleBackground'
 import GlassCard from '../components/Cards'
 import TrendChart from '../components/TrendChart'
 import { PageWrapper } from '../components/NavIndicator'
@@ -54,46 +49,76 @@ export default function PatientDetail() {
         </motion.div>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: '24px' }}>
-          {/* Left: 3D Tooth + Trends */}
+          {/* Left: Key metrics overview replacing tooth model */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.6 }}
-            className="glass"
-            style={{ padding: '24px', minHeight: '460px', position: 'relative' }}
+            style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}
           >
-            <div style={{ fontSize: '16px', fontWeight: 600, color: '#1C1C1E', marginBottom: '8px' }}>
-              3D 牙齿模型 · 问题区域标注
+            {/* Alert banner */}
+            <div style={{
+              padding: '20px 24px',
+              background: 'rgba(255,107,107,0.04)',
+              borderRadius: '16px',
+              border: '1px solid rgba(255,107,107,0.12)'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <motion.div
+                  animate={{ opacity: [1, 0.4, 1] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                  style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#FF6B6B', flexShrink: 0 }}
+                />
+                <div>
+                  <div style={{ fontSize: '15px', fontWeight: 600, color: '#FF6B6B', marginBottom: '2px' }}>
+                    需重点关注：依从性持续下降
+                  </div>
+                  <div style={{ fontSize: '12px', color: '#636366' }}>
+                    近4周日均佩戴不足18小时 · AI预测可能延长治疗6-8周
+                  </div>
+                </div>
+              </div>
             </div>
-            <div style={{ height: '340px' }}>
-              <Canvas camera={{ position: [0, 0.2, 2.5], fov: 40 }}>
-                <ambientLight intensity={0.5} />
-                <directionalLight position={[5, 5, 5]} intensity={0.7} />
-                <directionalLight position={[-3, 2, 2]} intensity={0.35} color="#64D2FF" />
-                <pointLight position={[0, 0, 3]} intensity={0.3} color="#FF6B6B" />
-                <Suspense fallback={null}>
-                  <ToothModel
-                    autoRotate
-                    scale={1.7}
-                    highlightZones={[
-                      { position: [0.25, 0.15, 0.15], color: '#FF6B6B' },
-                      { position: [-0.2, -0.1, 0.2], color: '#FF9F0A' },
-                    ]}
-                  />
-                  <Environment preset="studio" />
-                </Suspense>
-              </Canvas>
+
+            {/* 4-up metrics grid */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+              {[
+                { label: '依从性评分', value: '68', suffix: '%', color: '#FF6B6B', trend: '↓ 持续下降' },
+                { label: '日均佩戴', value: '16.5', suffix: 'h', color: '#FF9F0A', trend: '目标 ≥ 22h' },
+                { label: '牙齿移动', value: '2.8', suffix: 'mm', color: '#0A84FF', trend: '偏离预期 12%' },
+                { label: '矫治进度', value: '10', suffix: '%', color: '#8E8E93', trend: '第 3/30 副' },
+              ].map((card, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 + i * 0.08 }}
+                  className="glass-sm"
+                  style={{ padding: '18px 20px' }}
+                >
+                  <div style={{ fontSize: '12px', color: '#8E8E93', fontWeight: 500, marginBottom: '6px' }}>
+                    {card.label}
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px' }}>
+                    <span style={{ fontSize: '32px', fontWeight: 700, color: card.color, letterSpacing: '-1px' }}>
+                      {card.value}
+                    </span>
+                    <span style={{ fontSize: '14px', color: '#AEAEB2', fontWeight: 500 }}>{card.suffix}</span>
+                  </div>
+                  <div style={{ fontSize: '11px', color: '#AEAEB2', marginTop: '2px' }}>{card.trend}</div>
+                </motion.div>
+              ))}
             </div>
 
             {/* Trend charts */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginTop: '16px' }}>
-              <div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+              <div className="glass-sm" style={{ padding: '16px' }}>
                 <div style={{ fontSize: '12px', color: '#8E8E93', marginBottom: '8px', fontWeight: 500 }}>
                   依从性趋势（近12周）
                 </div>
                 <TrendChart data={complianceHistory} color="#FF6B6B" height={80} />
               </div>
-              <div>
+              <div className="glass-sm" style={{ padding: '16px' }}>
                 <div style={{ fontSize: '12px', color: '#8E8E93', marginBottom: '8px', fontWeight: 500 }}>
                   日佩戴时长趋势
                 </div>

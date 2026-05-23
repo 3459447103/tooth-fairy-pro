@@ -1,9 +1,6 @@
-import { Suspense, useState } from 'react'
+import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Canvas } from '@react-three/fiber'
-import { Environment } from '@react-three/drei'
-import ToothModel from '../components/ToothModel'
-import ParticleBackground from '../components/ParticleBackground'
+import PipelineFlow from '../components/PipelineFlow'
 import GlassCard from '../components/Cards'
 import { PageWrapper, SectionTitle } from '../components/NavIndicator'
 
@@ -242,30 +239,21 @@ export default function AIDecisionCenter() {
           </motion.div>
         </div>
 
-        {/* 3D visualization */}
+        {/* AI Decision Pipeline replacing tooth model */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.6 }}
           className="glass"
-          style={{ padding: '24px', textAlign: 'center' }}
+          style={{ padding: '24px' }}
         >
-          <div style={{ fontSize: '14px', fontWeight: 600, color: '#1C1C1E', marginBottom: '8px' }}>
-            医患数据流可视化
+          <div style={{ fontSize: '14px', fontWeight: 600, color: '#1C1C1E', marginBottom: '4px' }}>
+            AI 决策流水线
           </div>
-          <div style={{ height: '200px', position: 'relative' }}>
-            <Canvas camera={{ position: [0, 0, 4], fov: 55 }}>
-              <ambientLight intensity={0.4} />
-              <directionalLight position={[5, 5, 5]} intensity={0.5} />
-              <Suspense fallback={null}>
-                <ToothModel autoRotate transparent scale={1.4} />
-                <ParticleBackground count={100} color="#0A84FF" />
-              </Suspense>
-            </Canvas>
+          <div style={{ fontSize: '12px', color: '#8E8E93', marginBottom: '8px' }}>
+            端到端智能诊疗决策引擎
           </div>
-          <div style={{ fontSize: '12px', color: '#8E8E93' }}>
-            128个数据节点实时互联 · 延迟 &lt; 50ms
-          </div>
+          <PipelineFlow />
         </motion.div>
       </div>
     </PageWrapper>

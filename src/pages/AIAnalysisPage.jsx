@@ -1,9 +1,5 @@
-import { Suspense } from 'react'
 import { motion } from 'framer-motion'
-import { Canvas } from '@react-three/fiber'
-import { Environment } from '@react-three/drei'
-import ToothModel from '../components/ToothModel'
-import ParticleBackground from '../components/ParticleBackground'
+import RadarChart from '../components/RadarChart'
 import GlassCard from '../components/Cards'
 import { PageWrapper, SectionTitle } from '../components/NavIndicator'
 
@@ -94,32 +90,14 @@ export default function AIAnalysisPage() {
               </div>
             </div>
 
-            {/* 3D heatmap tooth */}
-            <div style={{ height: '200px', position: 'relative', marginTop: '8px' }}>
-              <Canvas camera={{ position: [0, 0.5, 3], fov: 45 }}>
-                <ambientLight intensity={0.5} />
-                <directionalLight position={[5, 5, 5]} intensity={0.6} />
-                <Suspense fallback={null}>
-                  <ToothModel autoRotate transparent />
-                </Suspense>
-              </Canvas>
-              <div style={{
-                position: 'absolute', bottom: '8px', left: '50%', transform: 'translateX(-50%)',
-                display: 'flex', alignItems: 'center', gap: '10px', fontSize: '11px', color: '#8E8E93'
-              }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  <div style={{ width: '8px', height: '8px', borderRadius: '2px', background: '#30C8B0' }} />
-                  正常
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  <div style={{ width: '8px', height: '8px', borderRadius: '2px', background: '#FF9F0A' }} />
-                  关注
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  <div style={{ width: '8px', height: '8px', borderRadius: '2px', background: '#FF6B6B' }} />
-                  风险
-                </div>
-              </div>
+            {/* Radar chart replacing tooth model */}
+            <div style={{ marginTop: '16px' }}>
+              <RadarChart
+                data={riskFactors.map(r => r.value)}
+                labels={riskFactors.map(r => r.label)}
+                size={260}
+                color="#0A84FF"
+              />
             </div>
           </motion.div>
 

@@ -1,8 +1,4 @@
-import { Suspense, useState } from 'react'
 import { motion } from 'framer-motion'
-import { Canvas } from '@react-three/fiber'
-import { Environment } from '@react-three/drei'
-import ToothModel from '../components/ToothModel'
 import GlassCard from '../components/Cards'
 import { PageWrapper, SectionTitle } from '../components/NavIndicator'
 
@@ -15,8 +11,6 @@ const stages = [
 ]
 
 export default function TreatmentProgress() {
-  const [compareMode, setCompareMode] = useState(false)
-
   return (
     <PageWrapper>
       <div style={{ padding: '40px 48px', maxWidth: '1400px', margin: '0 auto' }}>
@@ -86,74 +80,62 @@ export default function TreatmentProgress() {
 
         {/* 3D Compare + Current status */}
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
-          {/* 3D Before/After compare */}
+          {/* Treatment progress visualization replacing tooth model */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3, duration: 0.6 }}
             className="glass"
-            style={{ padding: '24px', minHeight: '380px', position: 'relative' }}
+            style={{ padding: '28px', minHeight: '380px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}
           >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-              <div style={{ fontSize: '16px', fontWeight: 600, color: '#1C1C1E' }}>
-                3D 牙齿对比
-              </div>
-              <div style={{ display: 'flex', gap: '6px' }}>
-                <button
-                  onClick={() => setCompareMode(false)}
-                  style={{
-                    padding: '6px 14px', borderRadius: '8px', border: 'none',
-                    background: !compareMode ? '#0A84FF' : 'rgba(0,0,0,0.04)',
-                    color: !compareMode ? 'white' : '#8E8E93',
-                    fontSize: '12px', fontWeight: 500, cursor: 'pointer'
-                  }}
+            {/* Circular progress */}
+            <div style={{ position: 'relative', width: '180px', height: '180px', marginBottom: '28px' }}>
+              <svg viewBox="0 0 180 180" style={{ transform: 'rotate(-90deg)' }}>
+                <circle cx="90" cy="90" r="80" fill="none" stroke="rgba(0,0,0,0.05)" strokeWidth="8" />
+                <motion.circle
+                  cx="90" cy="90" r="80" fill="none" stroke="#0A84FF" strokeWidth="8"
+                  strokeLinecap="round"
+                  strokeDasharray={2 * Math.PI * 80}
+                  initial={{ strokeDashoffset: 2 * Math.PI * 80 }}
+                  animate={{ strokeDashoffset: (1 - 0.42) * 2 * Math.PI * 80 }}
+                  transition={{ delay: 0.5, duration: 1.5, ease: 'easeOut' }}
+                />
+              </svg>
+              <div style={{
+                position: 'absolute', inset: 0, display: 'flex',
+                flexDirection: 'column', alignItems: 'center', justifyContent: 'center'
+              }}>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 1 }}
+                  style={{ fontSize: '48px', fontWeight: 700, color: '#0A84FF', lineHeight: 1 }}
                 >
-                  当前
-                </button>
-                <button
-                  onClick={() => setCompareMode(true)}
-                  style={{
-                    padding: '6px 14px', borderRadius: '8px', border: 'none',
-                    background: compareMode ? '#30C8B0' : 'rgba(0,0,0,0.04)',
-                    color: compareMode ? 'white' : '#8E8E93',
-                    fontSize: '12px', fontWeight: 500, cursor: 'pointer'
-                  }}
-                >
-                  AI预测
-                </button>
+                  42<span style={{ fontSize: '22px', color: '#8E8E93' }}>%</span>
+                </motion.div>
+                <div style={{ fontSize: '13px', color: '#8E8E93', marginTop: '4px' }}>整体进度</div>
+                <div style={{ fontSize: '14px', fontWeight: 600, color: '#1C1C1E', marginTop: '8px' }}>
+                  第 8/24 副
+                </div>
               </div>
             </div>
 
-            <div style={{ height: '260px' }}>
-              <Canvas camera={{ position: [0, 0.3, 3], fov: 45 }}>
-                <ambientLight intensity={0.5} />
-                <directionalLight position={[5, 5, 5]} intensity={0.6} />
-                <Suspense fallback={null}>
-                  <ToothModel autoRotate scale={1.6} transparent={compareMode} />
-                </Suspense>
-              </Canvas>
-            </div>
-
-            <div style={{
-              display: 'flex', gap: '16px', justifyContent: 'center', marginTop: '8px'
-            }}>
+            {/* Data indicators */}
+            <div style={{ display: 'flex', gap: '32px', justifyContent: 'center' }}>
               <div style={{ textAlign: 'center' }}>
-                <div style={{ fontSize: '11px', color: '#8E8E93' }}>前牙拥挤度</div>
-                <div style={{ fontSize: '14px', fontWeight: 600, color: '#0A84FF' }}>
-                  {compareMode ? '0.2mm →' : '1.8mm'}
-                </div>
+                <div style={{ fontSize: '11px', color: '#8E8E93', marginBottom: '2px' }}>前牙拥挤度</div>
+                <div style={{ fontSize: '18px', fontWeight: 600, color: '#0A84FF' }}>1.8mm</div>
+                <div style={{ fontSize: '10px', color: '#30C8B0', marginTop: '2px' }}>↓ 改善 62%</div>
               </div>
               <div style={{ textAlign: 'center' }}>
-                <div style={{ fontSize: '11px', color: '#8E8E93' }}>覆合改善</div>
-                <div style={{ fontSize: '14px', fontWeight: 600, color: '#30C8B0' }}>
-                  {compareMode ? '完美 →' : '改善中'}
-                </div>
+                <div style={{ fontSize: '11px', color: '#8E8E93', marginBottom: '2px' }}>覆合改善</div>
+                <div style={{ fontSize: '18px', fontWeight: 600, color: '#30C8B0' }}>显著</div>
+                <div style={{ fontSize: '10px', color: '#30C8B0', marginTop: '2px' }}>目标达成</div>
               </div>
               <div style={{ textAlign: 'center' }}>
-                <div style={{ fontSize: '11px', color: '#8E8E93' }}>牙齿移动</div>
-                <div style={{ fontSize: '14px', fontWeight: 600, color: '#636366' }}>
-                  3.2mm
-                </div>
+                <div style={{ fontSize: '11px', color: '#8E8E93', marginBottom: '2px' }}>已移动距离</div>
+                <div style={{ fontSize: '18px', fontWeight: 600, color: '#636366' }}>3.2mm</div>
+                <div style={{ fontSize: '10px', color: '#8E8E93', marginTop: '2px' }}>预计 8.2mm</div>
               </div>
             </div>
           </motion.div>

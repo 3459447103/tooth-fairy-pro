@@ -1,9 +1,9 @@
-import { Suspense } from 'react'
+import { Suspense, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Canvas } from '@react-three/fiber'
 import { Environment } from '@react-three/drei'
 import ToothModel from '../components/ToothModel'
-import ParticleBackground from '../components/ParticleBackground'
+import SkeletonLoader from '../components/SkeletonLoader'
 import GlassCard from '../components/Cards'
 import TrendChart from '../components/TrendChart'
 import { PageWrapper } from '../components/NavIndicator'
@@ -12,6 +12,8 @@ const weeklyData = [18.5, 19.2, 20.1, 21.0, 20.8, 21.5, 22.0]
 const complianceData = [92, 94, 91, 95, 93, 96, 95]
 
 export default function PatientHome() {
+  const [modelReady, setModelReady] = useState(false)
+
   return (
     <PageWrapper>
       <div style={{ padding: '40px 48px', maxWidth: '1400px', margin: '0 auto' }}>
@@ -30,7 +32,7 @@ export default function PatientHome() {
               你好，张小姐
             </div>
             <div style={{ fontSize: '14px', color: '#8E8E93', marginTop: '2px' }}>
-              隐形齿精灵 Pro · 第 8/24 副牙套
+              数智矫正 · 第 8/24 副牙套
             </div>
           </div>
           <div style={{ display: 'flex', gap: '10px' }}>
@@ -121,7 +123,7 @@ export default function PatientHome() {
             </GlassCard>
           </motion.div>
 
-          {/* Center: 3D Tooth */}
+          {/* Center: 3D Tooth with skeleton loader */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -132,40 +134,45 @@ export default function PatientHome() {
             }}
           >
             <div style={{ width: '100%', height: '100%', position: 'relative' }}>
-              <Canvas camera={{ position: [0, 0.2, 2.8], fov: 40 }}>
-                <ambientLight intensity={0.5} />
-                <directionalLight position={[5, 5, 5]} intensity={0.7} />
-                <directionalLight position={[-3, 2, 2]} intensity={0.35} color="#64D2FF" />
-                <pointLight position={[0, 1, 3]} intensity={0.4} color="#30C8B0" />
-                <Suspense fallback={null}>
-                  <ToothModel scale={2.0} />
-                  <Environment preset="studio" />
-                </Suspense>
-              </Canvas>
+              {!modelReady && (
+                <div style={{
+                  position: 'absolute', inset: 0,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  zIndex: 5
+                }}>
+                  <SkeletonLoader />
+                </div>
+              )}
 
-              {/* Particle background layer */}
-              <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}>
-                <Canvas camera={{ position: [0, 0, 5], fov: 60 }}>
+              <div style={{ opacity: modelReady ? 1 : 0, transition: 'opacity 0.6s ease-in' }}>
+                <Canvas camera={{ position: [0, 0.2, 2.8], fov: 40 }}>
+                  <ambientLight intensity={0.5} />
+                  <directionalLight position={[5, 5, 5]} intensity={0.7} />
+                  <directionalLight position={[-3, 2, 2]} intensity={0.35} color="#64D2FF" />
+                  <pointLight position={[0, 1, 3]} intensity={0.4} color="#30C8B0" />
                   <Suspense fallback={null}>
-                    <ParticleBackground count={80} color="#0A84FF" />
+                    <ToothModel scale={2.0} onReady={() => setModelReady(true)} />
+                    <Environment preset="studio" />
                   </Suspense>
                 </Canvas>
               </div>
 
               {/* HUD labels */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1 }}
-                style={{
-                  position: 'absolute', top: '15%', right: '10%',
-                  background: 'rgba(255,255,255,0.8)', backdropFilter: 'blur(8px)',
-                  borderRadius: '8px', padding: '6px 12px', fontSize: '11px',
-                  color: '#0A84FF', fontWeight: 500, border: '1px solid rgba(10,132,255,0.12)'
-                }}
-              >
-                AI 检测区域 · 佩戴正常
-              </motion.div>
+              {modelReady && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.5 }}
+                  style={{
+                    position: 'absolute', top: '15%', right: '10%',
+                    background: 'rgba(255,255,255,0.8)', backdropFilter: 'blur(8px)',
+                    borderRadius: '8px', padding: '6px 12px', fontSize: '11px',
+                    color: '#0A84FF', fontWeight: 500, border: '1px solid rgba(10,132,255,0.12)'
+                  }}
+                >
+                  AI 检测区域 · 佩戴正常
+                </motion.div>
+              )}
             </div>
           </motion.div>
 

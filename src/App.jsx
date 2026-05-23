@@ -8,7 +8,6 @@ import HealthCenter from './pages/HealthCenter'
 import DoctorDashboard from './pages/DoctorDashboard'
 import PatientDetail from './pages/PatientDetail'
 import AIDecisionCenter from './pages/AIDecisionCenter'
-import ProjectValue from './pages/ProjectValue'
 import EndingPage from './pages/EndingPage'
 import NavIndicator from './components/NavIndicator'
 
@@ -46,14 +45,14 @@ export default function App() {
   }, [role])
 
   const getMaxPages = () => {
-    if (role === 'patient') return PATIENT_PAGES.length + 2 // + Login + ProjectValue + Ending
-    return DOCTOR_PAGES.length + 2
+    if (role === 'patient') return PATIENT_PAGES.length + 1
+    return DOCTOR_PAGES.length + 1
   }
 
-  // Total pages = role pages + ProjectValue + Ending
+  // Total pages = role pages + Ending
   const totalPages = role === 'patient'
-    ? PATIENT_PAGES.length + DOCTOR_PAGES.length + 3
-    : DOCTOR_PAGES.length + PATIENT_PAGES.length + 3
+    ? PATIENT_PAGES.length + DOCTOR_PAGES.length + 2
+    : DOCTOR_PAGES.length + PATIENT_PAGES.length + 2
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown)
@@ -67,10 +66,6 @@ export default function App() {
 
     if (pageIndex === totalPages - 1) {
       return <EndingPage />
-    }
-
-    if (pageIndex === totalPages - 2) {
-      return <ProjectValue />
     }
 
     if (role === 'patient') {

@@ -1,8 +1,7 @@
 import { useState, Suspense } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { Canvas } from '@react-three/fiber'
-import { Environment } from '@react-three/drei'
-import ToothModel from '../components/ToothModel'
+import BrandHalo3D from '../components/BrandHalo3D'
 import ParticleBackground from '../components/ParticleBackground'
 
 export default function LoginPage({ onLogin }) {
@@ -21,38 +20,34 @@ export default function LoginPage({ onLogin }) {
       overflow: 'hidden'
     }}>
       {/* Background particles */}
-      <div style={{ position: 'absolute', inset: 0, opacity: 0.6 }}>
+      <div style={{ position: 'absolute', inset: 0, opacity: 0.4 }}>
         <Canvas camera={{ position: [0, 0, 5], fov: 60 }}>
           <Suspense fallback={null}>
-            <ParticleBackground count={120} color="#0A84FF" />
+            <ParticleBackground count={80} color="#0A84FF" />
           </Suspense>
         </Canvas>
       </div>
 
-      {/* Left: 3D Tooth */}
+      {/* Left: Brand Halo 3D */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.2 }}
         style={{
           flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center',
-          position: 'relative'
+          position: 'relative', minWidth: 0
         }}
       >
-        <div style={{ width: '480px', height: '480px' }}>
-          <Canvas camera={{ position: [0, 0.3, 3.5], fov: 42 }}>
-            <ambientLight intensity={0.6} />
-            <directionalLight position={[5, 5, 5]} intensity={0.8} />
-            <directionalLight position={[-3, 2, 2]} intensity={0.4} color="#64D2FF" />
-            <pointLight position={[0, 0, 3]} intensity={0.5} color="#0A84FF" />
+        <div style={{ width: '520px', height: '520px' }}>
+          <Canvas camera={{ position: [0, 0, 4.5], fov: 42 }}
+            gl={{ antialias: true, alpha: true }}>
             <Suspense fallback={null}>
-              <ToothModel autoRotate transparent />
-              <Environment preset="studio" />
+              <BrandHalo3D />
             </Suspense>
           </Canvas>
         </div>
 
-        {/* HUD overlay text */}
+        {/* Branding overlay */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -60,24 +55,24 @@ export default function LoginPage({ onLogin }) {
           style={{
             position: 'absolute', bottom: '60px', left: '50%', transform: 'translateX(-50%)',
             color: '#1C1C1E', fontSize: '28px', fontWeight: 600, letterSpacing: '-0.5px',
-            textAlign: 'center'
+            textAlign: 'center', zIndex: 20, pointerEvents: 'none'
           }}
         >
           <div style={{ fontSize: '42px', fontWeight: 700, marginBottom: '8px', letterSpacing: '-1px' }}>
-            隐形齿精灵
+            数智矫正
           </div>
           <div style={{ fontSize: '16px', fontWeight: 400, color: '#636366' }}>
-            INVISIBLE TOOTH FAIRY PRO
+            PRECISION ORTHODONTICS
           </div>
         </motion.div>
 
-        {/* HUD scan lines */}
+        {/* Glow background */}
         <motion.div
-          animate={{ opacity: [0.2, 0.5, 0.2] }}
-          transition={{ duration: 3, repeat: Infinity }}
+          animate={{ opacity: [0.15, 0.3, 0.15] }}
+          transition={{ duration: 4, repeat: Infinity }}
           style={{
             position: 'absolute', inset: 0,
-            background: 'radial-gradient(circle at 50% 50%, rgba(10,132,255,0.03) 0%, transparent 60%)',
+            background: 'radial-gradient(circle at 50% 50%, rgba(10,132,255,0.08) 0%, transparent 60%)',
             pointerEvents: 'none'
           }}
         />
@@ -93,10 +88,7 @@ export default function LoginPage({ onLogin }) {
           padding: '48px'
         }}
       >
-        <div
-          className="glass"
-          style={{ width: '100%', padding: '40px 36px' }}
-        >
+        <div className="glass" style={{ width: '100%', padding: '40px 36px' }}>
           <div style={{ marginBottom: '32px' }}>
             <div style={{ fontSize: '24px', fontWeight: 600, color: '#1C1C1E', marginBottom: '4px' }}>
               欢迎回来
@@ -125,7 +117,7 @@ export default function LoginPage({ onLogin }) {
                 }}
                 whileTap={{ scale: 0.98 }}
               >
-                {r === 'patient' ? '🧑‍⚕️ 患者登录' : '👨‍⚕️ 医生登录'}
+                {r === 'patient' ? '患者登录' : '医生登录'}
               </motion.button>
             ))}
           </div>
@@ -136,15 +128,13 @@ export default function LoginPage({ onLogin }) {
                 邮箱地址
               </label>
               <input
-                type="email"
-                value={email}
+                type="email" value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="name@example.com"
                 style={{
                   width: '100%', padding: '12px 16px', borderRadius: '12px',
                   border: '1px solid rgba(0,0,0,0.08)', background: 'rgba(0,0,0,0.02)',
-                  fontSize: '15px', outline: 'none',
-                  transition: 'border-color 0.2s'
+                  fontSize: '15px', outline: 'none'
                 }}
                 required
               />
@@ -154,8 +144,7 @@ export default function LoginPage({ onLogin }) {
                 密码
               </label>
               <input
-                type="password"
-                value={password}
+                type="password" value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
                 style={{
