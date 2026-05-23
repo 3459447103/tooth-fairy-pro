@@ -20,7 +20,7 @@ export default function LoginPage({ onLogin }) {
       overflow: 'hidden'
     }}>
       {/* Background particles */}
-      <div style={{ position: 'absolute', inset: 0, opacity: 0.4 }}>
+      <div style={{ position: 'absolute', inset: 0, opacity: 0.4, pointerEvents: 'none' }}>
         <Canvas camera={{ position: [0, 0, 5], fov: 60 }}>
           <Suspense fallback={null}>
             <ParticleBackground count={80} color="#0A84FF" />
