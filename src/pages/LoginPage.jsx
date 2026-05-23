@@ -38,7 +38,7 @@ export default function LoginPage({ onLogin }) {
           position: 'relative', minWidth: 0
         }}
       >
-        <div style={{ width: '520px', height: '520px' }}>
+        <div style={{ width: '520px', height: '520px', pointerEvents: 'none' }}>
           <Canvas camera={{ position: [0, 0, 4.5], fov: 42 }}
             gl={{ antialias: true, alpha: true }}>
             <Suspense fallback={null}>
@@ -85,7 +85,7 @@ export default function LoginPage({ onLogin }) {
         transition={{ duration: 0.8, delay: 0.3 }}
         style={{
           width: '440px', display: 'flex', alignItems: 'center', justifyContent: 'center',
-          padding: '48px'
+          padding: '48px', position: 'relative', zIndex: 10
         }}
       >
         <div className="glass" style={{ width: '100%', padding: '40px 36px' }}>
